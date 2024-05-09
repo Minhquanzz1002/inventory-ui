@@ -1,22 +1,21 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import {usePathname} from "next/navigation";
 import React, {useEffect, useRef, useState} from "react";
-import {DashboardIcon} from "./SidebarIcons";
 import SidebarLink from "./SidebarLink";
 import SidebarLinkDropdown from "./SidebarLinkDropdown";
 import {
-    TickerPercent,
+    ArrowLeft,
+    BaggageClaim,
+    BookUser,
+    Fence,
+    PackageSearch,
     ShoppingCart,
     Tag,
-    BookUser,
-    BaggageClaim,
-    Warehouse,
-    Fence,
-    PackageSearch
+    TickerPercent,
+    Warehouse
 } from "@/components/Icons";
-import {List} from "postcss/lib/list";
+import LayoutGrid from "../Icons/LayoutGrid";
 
 
 interface SidebarProps {
@@ -25,37 +24,23 @@ interface SidebarProps {
 }
 
 interface Category {
-    name: string,
-    path: string,
-    icon?: JSX.Element | Element;
+    name: string;
+    path: string;
+    icon: React.ReactNode;
     sub?: SubCategory[];
 }
 
 interface SubCategory {
-    name: string,
-    path: string,
+    name: string;
+    path: string;
 }
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
-    const categories : Category[] = [
+const Sidebar = ({sidebarOpen, setSidebarOpen}: SidebarProps) => {
+    const categories: Category[] = [
         {
             name: "Trang chủ",
             path: "",
-            icon: DashboardIcon,
-            sub: [
-                {
-                    name: "Báo cáo tồn kho",
-                    path: "bao-cao-ton-kho"
-                },
-                {
-                    name: "Báo cáo nhập kho",
-                    path: "bao-cao-nhap-kho"
-                },
-                {
-                    name: "Báo cáo xuất kho",
-                    path: "bao-cao-xuat-kho"
-                }
-            ]
+            icon: <LayoutGrid/>,
         },
         {
             name: "Sản phẩm",
@@ -95,14 +80,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 {
                     name: "Tất cả nguyên vật liệu",
                     path: "materials"
-                },
-                {
-                    name: "Thêm NVL",
-                    path: "add"
-                },
-                {
-                    name: "Cập nhật NVL",
-                    path: "update"
                 },
             ]
         },
@@ -147,19 +124,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         },
     ]
 
-    const pathname = usePathname();
     const trigger = useRef<any>(null);
     const sidebar = useRef<any>(null);
 
-    let storedSidebarExpanded = "true";
 
-    const [sidebarExpanded, setSidebarExpanded] = useState(
-        storedSidebarExpanded === null ? false : storedSidebarExpanded === "true",
-    );
+    const [sidebarExpanded, setSidebarExpanded] = useState<boolean>(true);
 
     // close on click outside
     useEffect(() => {
-        const clickHandler = ({ target }: MouseEvent) => {
+        const clickHandler = ({target}: MouseEvent) => {
             if (!sidebar.current || !trigger.current) return;
             if (
                 !sidebarOpen ||
@@ -175,7 +148,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
     // close if the esc key is pressed
     useEffect(() => {
-        const keyHandler = ({ key }: KeyboardEvent) => {
+        const keyHandler = ({key}: KeyboardEvent) => {
             if (!sidebarOpen || key !== "Escape") return;
             setSidebarOpen(false);
         };
@@ -196,7 +169,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         <aside
             ref={sidebar}
             className={`absolute left-0 top-0 z-9999 flex h-screen w-60 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
-                }`}
+            }`}
         >
             {/* Sidebar Header Start */}
             <div className="flex items-center justify-between gap-2 px-4 py-5.5 lg:py-6.5">
@@ -217,19 +190,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     aria-expanded={sidebarOpen}
                     className="block lg:hidden"
                 >
-                    <svg
-                        className="fill-current"
-                        width="20"
-                        height="18"
-                        viewBox="0 0 20 18"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M19 8.175H2.98748L9.36248 1.6875C9.69998 1.35 9.69998 0.825 9.36248 0.4875C9.02498 0.15 8.49998 0.15 8.16248 0.4875L0.399976 8.3625C0.0624756 8.7 0.0624756 9.225 0.399976 9.5625L8.16248 17.4375C8.31248 17.5875 8.53748 17.7 8.76248 17.7C8.98748 17.7 9.17498 17.625 9.36248 17.475C9.69998 17.1375 9.69998 16.6125 9.36248 16.275L3.02498 9.8625H19C19.45 9.8625 19.825 9.4875 19.825 9.0375C19.825 8.55 19.45 8.175 19 8.175Z"
-                            fill=""
-                        />
-                    </svg>
+                    <ArrowLeft/>
                 </button>
             </div>
             {/* Sidebar Header End */}
@@ -247,16 +208,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                     <div key={index}>
                                         {
                                             category.sub ? (
-                                                <SidebarLinkDropdown icon={category.icon} category={category} sidebarExpanded={sidebarExpanded} setSidebarExpanded={setSidebarExpanded} />
+                                                <SidebarLinkDropdown icon={category.icon} category={category}
+                                                                     sidebarExpanded={sidebarExpanded}
+                                                                     setSidebarExpanded={setSidebarExpanded}/>
                                             ) : (
-                                                <SidebarLink icon={category.icon} path={category.path} name={category.name} />
+                                                <SidebarLink icon={category.icon} path={category.path}
+                                                             name={category.name}/>
                                             )
                                         }
                                     </div>
                                 ))
                             }
                         </ul>
-
 
 
                     </div>

@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Trash = () => {
+const Trash = ({className = "text-red"} : {className?: string}) => {
     return (
         <svg
-            className="fill-current text-red"
+            className={`fill-current ${className}`}
             width="18"
             height="18"
             viewBox="0 0 18 18"

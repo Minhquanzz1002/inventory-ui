@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Eye = () => {
+const Eye = ({className = "text-blue-700"} : {className?: string}) => {
     return (
         <svg
-            className="fill-current text-blue-700"
+            className={`fill-current ${className}`}
             width="18"
             height="18"
             viewBox="0 0 18 18"

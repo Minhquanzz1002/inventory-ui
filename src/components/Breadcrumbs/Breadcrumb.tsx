@@ -3,7 +3,7 @@ import React from "react";
 
 interface BreadcrumbProps {
     pageName: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 const Breadcrumb = ({pageName, children}: BreadcrumbProps) => {

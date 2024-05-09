@@ -20,6 +20,10 @@ import Seach from "@/components/Icons/Seach";
 import Warehouse from "@/components/Icons/Warehouse";
 import Fence from "@/components/Icons/Fence";
 import PackageSearch from "@/components/Icons/PackageSearch";
+import LayoutGrid from "@/components/Icons/LayoutGrid";
+import ArrowLeft from "@/components/Icons/ArrowLeft";
+import ImageUp from "@/components/Icons/ImageUp";
+import ArrowDown from "@/components/Icons/ArrowDown";
 export {
     Clock,
     Google,
@@ -43,4 +47,9 @@ export {
     Warehouse,
     Fence,
     PackageSearch,
+    LayoutGrid,
+    ArrowLeft,
+    ImageUp,
+    ArrowDown,
+
 }
