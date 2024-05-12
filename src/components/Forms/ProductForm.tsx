@@ -5,6 +5,7 @@ import Select from "@/components/Inputs/Select";
 import {Eye, ImageUp, Trash} from "@/components/Icons";
 import SearchInput from "@/components/Inputs/SearchInput";
 import Image from "next/image";
+import Editor from "@/components/Inputs/Editor";
 
 export interface Status {
     name: string;
@@ -76,6 +77,10 @@ const ProductForm = () => {
                             <option className="py-5" value="">Đang bán</option>
                             <option value="">Hết hàng</option>
                         </Select>
+                    </div>
+
+                    <div>
+                        <Editor placeholder="Nhập mô tả"/>
                     </div>
                 </div>
             </div>
